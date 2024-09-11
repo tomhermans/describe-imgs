@@ -4,7 +4,7 @@
 
 The Image Description App is a web-based tool designed to streamline the process of adding descriptions to images. It's particularly useful for content creators, web developers, and digital asset managers who need to improve the accessibility and searchability of their image collections.
 
-I, Tom Hermans, @tomhermans, built this app especially to help me tag and annotate images for useage in AI ImageGen creation (and a bit to help me learn more about the [Node.js](https://nodejs.org/en/) and [Express](https://expressjs.com/) frameworks.)
+I built this app especially to help me tag and annotate images for useage in AI ImageGen creation (and a bit to help me learn more about the [Node.js](https://nodejs.org/en/) and [Express](https://expressjs.com/) frameworks.)
 
 ## Features
 
@@ -74,6 +74,7 @@ I, Tom Hermans, @tomhermans, built this app especially to help me tag and annota
 - If the server fails to start, check if the port is already in use and modify as needed.
 
 ## Contributing
+Tom Hermans
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
