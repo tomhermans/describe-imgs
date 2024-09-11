@@ -3,3 +3,9 @@ images/*
 
 # But don't ignore the images folder itself
 !images/.gitkeep
+
+node_modules
+*.log*
+.cache
+.output
+.env
