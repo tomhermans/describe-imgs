@@ -6,7 +6,10 @@ The Image Description App is a web-based tool designed to streamline the process
 
 I built this app especially to help me tag and annotate images for useage in AI ImageGen creation (and a bit to help me learn more about the [Node.js](https://nodejs.org/en/) and [Express](https://expressjs.com/) frameworks.)
 
-## Features list
+## Screenshots
+![Screenshot of Image Description App](assets/screenshot01.png)
+
+## Features
 
 - Display images from a local folder (/images), put your images there.
 - Add and edit descriptions for each image
