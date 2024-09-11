@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Description App</title>
+    <link rel="stylesheet" href="./style.css?v=1">
+
+</head>
+
+<body>
+    <main>
+        <!-- <div class="word-buttons" id="wordButtons"></div> -->
+        <div class="word-buttons-container">
+            <div id="wordButtons" class="word-buttons"></div>
+        </div>
+        <div class="image-section">
+            <img id="currentImage" src="" alt="Current image" width="100%">
+        </div>
+        <div class="input-section">
+            <textarea id="prefixInput" placeholder="Enter prefix here"></textarea>
+            
+                <textarea id="description" placeholder="Enter description here"></textarea>
+                <div class="char-counter"><span id="charCount">0</span> characters</div>
+            
+            <button id="nextButton">Next</button>
+        </div>
+    </main>
+
+    <script>
+        let currentImageIndex = 0;
+        let images = [];
+        const prefixInput = document.getElementById('prefixInput');
+        const descriptionInput = document.getElementById('description');
+        const wordButtons = document.getElementById('wordButtons');
+        const charCount = document.getElementById('charCount');
+
+        async function loadImages() {
+            const response = await fetch('/api/images');
+            images = await response.json();
+            displayCurrentImage();
+            loadWordFrequency();
+        }
+
+        async function displayCurrentImage() {
+            if (currentImageIndex < images.length) {
+                const imageName = images[currentImageIndex];
+                document.getElementById('currentImage').src = `/images/${imageName}`;
+                const descResponse = await fetch(`/api/description/${imageName}`);
+                const descData = await descResponse.json();
+                descriptionInput.value = descData.description;
+                updateCharCount();
+            } else {
+                alert('All images have been processed!');
+            }
+        }
+
+        async function loadWordFrequency() {
+            const response = await fetch('/api/word-frequency');
+            const words = await response.json();
+            wordButtons.innerHTML = '';
+            words.forEach(word => {
+                const button = document.createElement('button');
+                button.textContent = word;
+                button.classList.add('word-button');
+                button.onclick = () => appendWord(`${word},`);
+                wordButtons.appendChild(button);
+            });
+        }
+
+        function appendWord(word) {
+            descriptionInput.value += ` ${word}`;
+            updateCharCount();
+        }
+
+        function updateCharCount() {
+            charCount.textContent = descriptionInput.value.length;
+        }
+
+        document.getElementById('nextButton').addEventListener('click', async () => {
+            const imageName = images[currentImageIndex];
+            const description = descriptionInput.value;
+            const prefix = prefixInput.value;
+
+            await fetch('/api/save-description', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ imageName, description, prefix }),
+            });
+
+            currentImageIndex++;
+            descriptionInput.value = '';
+            updateCharCount();
+            displayCurrentImage();
+            loadWordFrequency();
+        });
+
+        descriptionInput.addEventListener('input', updateCharCount);
+
+        loadImages();
+    </script>
+</body>
+
+</html>

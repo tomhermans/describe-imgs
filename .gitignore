@@ -1,0 +1,5 @@
+# Ignore everything in the images folder
+images/*
+
+# But don't ignore the images folder itself
+!images/.gitkeep
