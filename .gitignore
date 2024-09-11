@@ -1,10 +1,12 @@
+# Ignore node_modules directory
+node_modules/
+
 # Ignore everything in the images folder
 images/*
 
 # But don't ignore the images folder itself
 !images/.gitkeep
 
-node_modules
 *.log*
 .cache
 .output
